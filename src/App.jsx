@@ -1,6 +1,7 @@
 import './style.scss';
 import { useState } from 'react';
 import Board from './components/Board';
+import StatusMessage from './components/StatusMessage';
 import { calculateWinner } from './winner';
 
 function App() {
@@ -9,15 +10,11 @@ function App() {
 
   const winner = calculateWinner(squares);
 
-  const nextPlayer = isXNext ? 'X' : '0';
-  const statusMessage = winner
-    ? `Winner is  ${winner}`
-    : `Next player is ${nextPlayer}`;
-
   const handleSquareClick = clickedPosition => {
     if (squares[clickedPosition] || winner) {
       return;
     }
+
     setSquares(currentSquares => {
       return currentSquares.map((squareValue, position) => {
         if (clickedPosition === position) {
@@ -30,7 +27,7 @@ function App() {
   };
   return (
     <div className="app">
-      <h2> {statusMessage}</h2>
+      <StatusMessage winner={winner} isXNext={isXNext} squares={squares} />
       <Board squares={squares} handleSquareClick={handleSquareClick}></Board>
     </div>
   );
