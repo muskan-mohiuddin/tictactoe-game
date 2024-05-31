@@ -8,10 +8,10 @@ const NEW_GAME = [{ squares: Array(9).fill(null), isXNext: false }];
 function App() {
   const [history, setHistory] = useState(NEW_GAME);
   const [currentMove, setCurrentMove] = useState(0);
+
   const gamingBoard = history[currentMove];
 
-  const winner = calculateWinner(gamingBoard.squares);
-  console.log({ historyLength: history.length, currentMove });
+  const { winner, winningSquares } = calculateWinner(gamingBoard.squares);
 
   const handleSquareClick = clickedPosition => {
     if (gamingBoard.squares[clickedPosition] || winner) {
@@ -58,6 +58,7 @@ function App() {
       <Board
         squares={gamingBoard.squares}
         handleSquareClick={handleSquareClick}
+        winningSquares={winningSquares}
       ></Board>
       <button
         type="button"
